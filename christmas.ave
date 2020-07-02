@@ -1,0 +1,253 @@
+== Christmas Puzzle ==
+-- This game is part of the mscroggs.co.uk 2016 Advent Calendar. The code to the safe is the answer for the puzzle on 11 December. --
+** Matthew Scroggs **
+
+# start
+It is Christmas Eve and you are standing in front of your safe.
+All your beautifully wrapped presents are locked in the safe, but you have forgotten the code to the safe.
+As you know you are forgetful, you have left clues to the code hidden around your office.
+What do you want to do?
+Try a number in the safe => safe
+Examine the desk => desk
+Examine the window => window
+Examine the picture on the wall => picture
+Look at fireplace => fire
+Shine the UV torch on the safe => suv ? torch
+
+# fire
+There is a roaring fire in the fireplace. It is hot. ?! out
+There is ash in the fireplace. It is cold ? out
+Pour water on the fire => fire + out ? jug ? l5>0 ?! out + l5=0
+Throw snow on the fire => fire + out ? snow_ ~ snow_ ?! out
+Look under the ash => ash ? out
+Go back => start
+
+# ash
+Under the ash, there is a message engraved in the stone base of the fireplace.
+The engraved writing is full of water. ? wet
+Read the message => ash_mess
+Pour water on the message => ash + wet ? jug ? l5>0 ?! out + l5=0
+Go back => fire
+
+# ash_mess
+The message says: "Two of the numbers in the code are the same."
+Continue => fire
+
+% jug
+Full 5 litre jug ? l5==5
+Part full 5 litre jug ? l5<5 ? l5>0
+Empty 5 litre jug ? l5==0
+
+# suv
+Nothing is revealed.
+Continue => start
+
+# picture
+You are looking at
+an upside down ? unlocked
+a ?! unlocked
+painting of Leonhard Euler playing on a Super Nintendo.
+Enter the Konami code => konami
+Look behind the picture => wall
+Examine the picture frame => frame
+Shine the UV torch on the picture => puv ? torch
+Go back => start
+
+# puv
+Nothing is revealed.
+Continue => picture
+
+# frame
+There is a small crack at the
+top ? unlocked
+bottom ?! unlocked
+of the frame and a tiny hidden lever at the
+left. ? unlocked
+right. ?! unlocked
+Pull the lever => lever
+Prise open the crack => crack
+Go back => picture
+
+# lever
+Nothing happens. ?! unlocked
+The picture swings away from the frame to reveal a hidden message. ? unlocked
+Read the message => picture_message ? unlocked
+Continue => picture
+
+# picture_message
+The message says: "The safe code is one more than a multiple of 9".
+Continue => picture
+
+# crack
+You prise open the crack to reveal a small button.
+Press the button => alarm
+Go back => picture
+
+# alarm
+The button sets off the burglar alarm. The police arrive and arrest you.
+You spend Christmas in prison and your presents spend Christmas in the safe.
+Continue => __GAMEOVER__
+
+# wall
+There is a blank wall behind the picture.
+Put the picture back => picture ~ unlocked
+Put the picture back upside down => picture + unlocked
+
+# konami
+Nothing happens.
+Continue => picture
+
+# three
+The third digit is 1.
+Go back => start
+
+# window
+You look out the window. It is snowing.
+Snow is falling in through the window. ? open
+There is a pile of snow by the window. ? snow
+Shine the UV torch on the window => wuv ? torch
+Shine the UV torch on the show => snuv ? torch ? snow
+Open the window => window + open ?! open
+Shut the window => window ~ open ? open
+Pick up the snow => window ? snow + snow_ ~ snow
+Go back => start ? open + snow
+Go back => start ?! open
+
+% snow_
+Snow
+
+# wuv
+Nothing is revealed.
+Continue => window
+
+# snuv
+The UV torch reveals a message on the wall just above the snow.
+Read the message => snmess
+Continue => window
+
+# snmess
+The message says: "The sum of the numbers in the safe code adds up to a multiple of 5."
+Continue => window
+
+# desk
+ ? l5<0 + l3+l5 + l5=0
+ ? l5>5 + l3+l5 + l3-5 + l5=5
+ ? l3>3 + l3=3
+On your desk there is a note written in your handwriting,
+a 5 litre jug full of liquid, ? l5==5 ?! jug
+a 5 litre jug containing 4 litres of liquid, ? l5==4 ?! jug
+a 5 litre jug containing 3 litres of liquid, ? l5==3 ?! jug
+a 5 litre jug containing 2 litres of liquid, ? l5==2 ?! jug
+a 5 litre jug containing 1 litre of liquid, ? l5==1 ?! jug
+an empty 5 litre jug, ? l5==0 ?! jug
+a 3 litre jug full of liquid, ? l3==3
+a 3 litre jug containing 2 litres of liquid, ? l3==2
+a 3 litre jug containing 1 litre of liquid, ? l3==1
+an empty 3 litre jug, ? l3==0
+a tap that supplies the liquid, and an electric scale.
+The floor around the desk is damp. ? floor
+Read the note => note
+Weigh the 5 litre jug => w5l ?! jug
+Weigh the 3 litre jug => w3l
+Fill the 5 litre jug from the tap => desk + l5=5 ? l5<5 ?! jug
+Fill the 3 litre jug from the tap => desk + l3=3 ? l3<3
+Empty the 5 litre jug onto the floor => desk + l5=0 ? l5>0 + floor ?! jug
+Empty the 3 litre jug onto the floor => desk + l3=0 ? l3>0 + floor
+Pour from the 5 litre jug into the 3 litre jug => desk ? l5>0 ? l3<3 + l5-3 + l5+l3 + l3=3 ?! jug
+Pour from the 3 litre jug into the 5 litre jug => desk ? l3>0 ? l5<5 + l5+l3 + l3=0 ?! jug
+Take the 5 litre jug => desk + jug ?! jug
+Put back the 5 litre jug => desk ~ jug ? jug
+Look in the desk drawer => drawer
+Go back to the safe => start
+
+# drawer
+There is a UV torch in the drawer. ?! torch
+The drawer is empty. ? torch
+Take the torch => drawer ?! torch + torch
+Put the torch in the drawer => drawer ? torch
+Go back => desk
+
+% torch
+UV torch
+
+# w5l
+You put the five litre jug on the scale. The digital display says
+3. ? l5==0
+8. ? l5==1
+13. ? l5==2
+18. ? l5==3
+23. ? l5==4
+28. ? l5==5
+Continue => desk
+
+# w3l
+You put the five litre jug on the scale. The digital display says
+2. ? l3==0
+7. ? l3==1
+12. ? l3==2
+17. ? l3==3
+Continue => desk
+
+# note
+The note says: "The first digit of the code to my safe is the weight of the five litre jug with one litre of liquid in it."
+Continue => desk
+
+% l5
+__NUMBER__ 5
+% l3
+__NUMBER__
+
+
+# safe
+You are looking at the safe. It has a keypad and space on the screen for a three digit code.
+Press 0 => safe2 + s1=0
+Press 1 => safe2 + s1=1
+Press 2 => safe2 + s1=2
+Press 3 => safe2 + s1=3
+Press 4 => safe2 + s1=4
+Press 5 => safe2 + s1=5
+Press 6 => safe2 + s1=6
+Press 7 => safe2 + s1=7
+Press 8 => safe2 + s1=8
+Press 9 => safe2 + s1=9
+Go back => start
+# safe2
+You are looking at the safe. It has a keypad and space on the screen for a three digit code.
+Press 0 => safe3 + s2=0
+Press 1 => safe3 + s2=1
+Press 2 => safe3 + s2=2
+Press 3 => safe3 + s2=3
+Press 4 => safe3 + s2=4
+Press 5 => safe3 + s2=5
+Press 6 => safe3 + s2=6
+Press 7 => safe3 + s2=7
+Press 8 => safe3 + s2=8
+Press 9 => safe3 + s2=9
+Go back => start
+# safe3
+You are looking at the safe. It has a keypad and space on the screen for a three digit code.
+Press 0 => try + s3=0
+Press 1 => try + s3=1
+Press 2 => try + s3=2
+Press 3 => try + s3=3
+Press 4 => try + s3=4
+Press 5 => try + s3=5
+Press 6 => try + s3=6
+Press 7 => try + s3=7
+Press 8 => try + s3=8
+Press 9 => try + s3=9
+Go back => start
+
+# try
+The safe opens. Christmas is saved! ? s1==8 ? s2==1 ? s3==1
+The code is wrong. ?! (s1==8 s2==1 s3==1)
+Continue => __WINNER__ ? s1==8 ? s2==1 ? s3==1
+Go back => start ?! (s1==8 s2==1 s3==1)
+
+
+% s1
+__NUMBER__
+% s2
+__NUMBER__
+% s3
+__NUMBER__
