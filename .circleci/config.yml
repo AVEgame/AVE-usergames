@@ -1,0 +1,46 @@
+version: 2.1
+
+orbs:
+  python: circleci/python@0.2.1
+
+jobs:
+  test-games:
+    executor: python/default
+    steps:
+      - checkout
+      - python/load-cache
+      - run:
+          command: pip3 install http://github.com/AVEgame/AVE
+          name: Install AVE
+      - run:
+          command: pip3 install pytest
+          name: Install pytest
+      - python/save-cache
+      - run:
+          command: python3 -m pytest test/
+          name: Run tests
+      - run:
+        name: Post Stats to GitHub PR
+        command: |
+            sudo apt-get install jq
+
+           pr_response=$(curl --location --request GET "https://api.github.com/repos/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/pulls?head=$CIRCLE_PROJECT_USERNAME:$CIRCLE_BRANCH&state=open" \
+          -u $GH_USER:$GH_API)
+
+          if [ $(echo $pr_response | jq length) -eq 0 ]; then
+            echo "No PR found to update"
+          else
+            pr_comment_url=$(echo $pr_response | jq -r ".[]._links.comments.href")
+          fi
+
+          curl --location --request POST "$pr_comment_url" \
+          -u $GH_USER:$GH_API \
+          --header 'Content-Type: application/json' \
+          --data-raw '{
+           "body": "Testing"
+          }'
+
+workflows:
+  main:
+    jobs:
+      - test-games
