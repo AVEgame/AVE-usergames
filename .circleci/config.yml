@@ -9,7 +9,11 @@ jobs:
     steps:
       - checkout
       - run:
-          command: pip3 install http://github.com/AVEgame/AVE
+          command: |
+              git clone http://github.com/AVEgame/AVE
+              cd AVE
+              python setup.py install
+              cd ..
           name: Install AVE
       - run:
           command: pip3 install pytest
