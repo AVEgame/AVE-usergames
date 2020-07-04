@@ -22,24 +22,11 @@ def test_games_for_errors(filename):
     game = load_game_from_file(filename)
     game.load()
 
-    issues = check_game(game)
-    errors = [i for i in issues if i.error_value > 3]
-    info = [i for i in issues if i.error_value <= 3]
+    # Assert that the worst error is an AVEWarning or lower
+    errors = [i for i in check_game(game) if i.error_value > 3]
     errors.sort(key=lambda e: -e.error_value)
-    info.sort(key=lambda e: -e.error_value)
 
-    if len(errors) > 0:
-        with open(results_txt, "a") as f:
-            f.write(str(len(errors)) + " error(s) in " + filename + "\n")
-            for e in errors:
-                f.write("  " + str(e) + "\n")
-            f.write("\n")
-    if len(info) > 0:
-        with open(results_txt, "a") as f:
-            f.write(str(len(info)) + " info(s) in " + filename + "\n")
-            for e in info:
-                f.write("  " + str(e) + "\n")
-            f.write("\n")
+    for e in errors:
+        print(e)
 
-    # Assert that the worst error is a Warning or lower
     assert len(errors) == 0
