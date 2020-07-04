@@ -34,7 +34,7 @@ jobs:
               -u $GH_USER:$GH_API \
               --header 'Content-Type: application/json' \
               --data-raw '{
-               "body": "Testing"
+               "body": "$(cat test/results.txt)"
               }'
           name: Post Stats to GitHub PR
 
