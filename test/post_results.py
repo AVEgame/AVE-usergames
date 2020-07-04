@@ -42,7 +42,7 @@ if os.environ["CIRCLE_BRANCH"] != "master":
         results += str(len(info)) + " note"
         if len(info) > 1:
             results += "s"
-        results += " in " + gamename + "\n"
+        results += " on " + gamename + "\n"
         for e in info:
             results += "* " + str(e) + "\n"
 
