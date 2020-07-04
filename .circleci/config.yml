@@ -35,9 +35,9 @@ jobs:
               curl --location --request POST "$pr_comment_url" \
               -u $GH_USER:$GH_API \
               --header 'Content-Type: application/json' \
-              --data-raw '{
-               "body": "$(cat test/results.txt)"
-              }'
+              --data-raw "{
+               \"body\": \"$(cat test/results.txt)\"
+              }"
           name: Post Stats to GitHub PR
 
 workflows:
