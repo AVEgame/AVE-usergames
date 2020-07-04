@@ -1,3 +1,5 @@
+import os
+
 results_txt = os.path.join(
     os.path.dirname(os.path.realpath(__file__)), "results.txt")
 
