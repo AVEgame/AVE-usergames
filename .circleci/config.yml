@@ -19,7 +19,9 @@ jobs:
           command: pip3 install pytest
           name: Install pytest
       - run:
-          command: python3 -m pytest test/
+          command: |
+              python3 -m pytest test/
+              python3 test/prepare_results.py
           name: Run tests
       - run:
           command: |
