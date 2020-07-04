@@ -16,10 +16,10 @@ pulls = repo.get_pulls(
     head=os.environ["CIRCLE_PROJECT_USERNAME"] + ":" + os.environ["CIRCLE_BRANCH"],
     state="open")
 
-if pr.totalCount != 1:
+if pulls.totalCount != 1:
     print("Count not identify PR.")
     raise KeyboardInterrupt
 
 pr = pulls[0]
 
-pr.create_comment(body=results)
+pr.create_issue_comment(body=results)
