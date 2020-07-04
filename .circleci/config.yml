@@ -16,11 +16,25 @@ jobs:
               cd ..
           name: Install AVE
       - run:
-          command: pip3 install pytest PyGitHub
-          name: Install pytest and PyGitHub
+          command: pip3 install pytest
+          name: Install pytest
       - run:
           command: python3 -m pytest test/test_games.py
           name: Run tests on games
+  comment-on-github:
+    executor: python/default
+    steps:
+      - checkout
+      - run:
+          command: |
+              git clone http://github.com/AVEgame/AVE
+              cd AVE
+              sudo python setup.py install
+              cd ..
+          name: Install AVE
+      - run:
+          command: pip3 install PyGitHub
+          name: Install PyGitHub
       - run:
           command: python3 test/post_results.py
           name: Post results to GitHub PR
@@ -29,3 +43,4 @@ workflows:
   main:
     jobs:
       - test-games
+      - comment-on-github
