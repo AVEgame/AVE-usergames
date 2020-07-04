@@ -4,6 +4,9 @@
 vv 1 vv
 ~~ off ~~
 
+% unuseditem
+This is Pointless
+
 # start
 You wake up. What do you want to do?
 Go back to sleep => start
