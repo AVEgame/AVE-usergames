@@ -3,6 +3,7 @@ from github import Github
 from ave import load_game_from_file
 from ave.test import check_game
 
+print(os.environ["CIRCLE_BRANCH"])
 if os.environ["CIRCLE_BRANCH"] != "master":
     git = Github(os.environ["GH_TOKEN"])
     repo = git.get_repo("AVEGame/AVE-usergames")
